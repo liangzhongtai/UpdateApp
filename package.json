@@ -1,0 +1,26 @@
+{
+  "name": "com.chinamobile.update.updateapp",
+  "version": "2.3.3",
+  "description": "this is plugin about updateapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "cordova": {
+    "id": "com.chinamobile.update.updateapp",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liangzhongtai/updateapp.git"
+  },
+  "keywords": [
+    "cordova",
+    "updateapp"
+  ]
+}

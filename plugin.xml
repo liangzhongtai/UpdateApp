@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="com.chinamobile.update.updateapp" version="2.3.3" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>updateapp</name>
+    <js-module name="updateapp" src="www/updateapp.js">
+        <clobbers target="cordova.plugins.updateapp" />
+    </js-module>
+
+	<platform name="android">
+        <!-- app更新插件 -->
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="UpdateApp">
+                <param name="android-package" value="com.chinamobile.update.UpdateApp"/>
+            </feature>
+        </config-file>
+        <!-- 权限 -->
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+			<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+        </config-file>
+
+        <!-- 适配sdk24及以上 -->
+        <config-file target="AndroidManifest.xml" parent="application">
+            <provider
+                android:name="com.chinamobile.update.FileProvider"
+                android:authorities="${applicationId}.provider"
+                android:exported="false"
+                android:grantUriPermissions="true" >
+                <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/updateapp_provider_paths"/>
+            </provider>
+        </config-file>
+
+        <!-- 四大组件 -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <service
+                android:name="com.chinamobile.update.UpdateService"
+                android:enabled="true"
+                android:exported="false">
+            </service>
+        </config-file>
+
+        <!-- 项目文件 -->
+        <source-file src="src/android/xml/updateapp_provider_paths.xml"  target-dir="res/xml" />
+		<source-file src="src/android/layout/notification_update.xml"    target-dir="res/layout" />
+		<source-file src="src/android/drawable/loading_progress_bar.xml" target-dir="res/drawable" />
+
+        <source-file src="src/android/UpdateApp.java"        target-dir="src/com/chinamobile/update" />
+        <source-file src="src/android/UpdateUtil.java"       target-dir="src/com/chinamobile/update" />
+        <source-file src="src/android/FileProvider.java"     target-dir="src/com/chinamobile/update" />
+        <source-file src="src/android/UpdateService.java"    target-dir="src/com/chinamobile/update" />
+    </platform>
+    
+    <platform name="ios">
+        
+		<!-- app更新插件 -->
+        
+		<config-file target="config.xml" parent="/*">
+            
+			<feature name="UpdateApp">
+                
+				<param name="ios-package" value="UpdateApp" />
+            
+			</feature>
+        
+		</config-file>
+        <!--  项目文件 -->
+        <header-file src="src/ios/UpdateApp.h" />
+        <source-file src="src/ios/UpdateApp.m" />
+        
+    </platform>
+</plugin>
